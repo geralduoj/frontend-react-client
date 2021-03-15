@@ -10,6 +10,7 @@ import './App.css';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import NavBar from './components/NavBar';
 
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
@@ -59,7 +60,10 @@ function App() {
   const classes = useStyles();
 
   return (
+    <React.Fragment>
+      
     <Router>
+    <NavBar />
     <Switch>
       <Route exact path="/" component={Home} />
       <Route path="/signin" component={SignIn} />
@@ -67,6 +71,8 @@ function App() {
       <Route path="/actions" component={Actions} />
     </Switch>
   </Router>
+    </React.Fragment>
+    
   );
 }
 //<Route render ={()=> < App />} path="/" />

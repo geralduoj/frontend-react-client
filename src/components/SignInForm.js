@@ -26,7 +26,6 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-      borderTop: theme.spacing(5),
     marginTop: theme.spacing(3),
     display: 'flex',
     flexDirection: 'column',
@@ -81,11 +80,11 @@ export default function SignIn() {
                         autoComplete="current-password"
                     />
                     <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
+                        fullWidth control={<Checkbox value="remember" color="primary" />}
                         label="Remember me"
                     />
                     <Button
-                        type="submit"
+                        //type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"

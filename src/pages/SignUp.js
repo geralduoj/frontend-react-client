@@ -54,8 +54,6 @@ export default function SignUp() {
 
   return (
     <React.Fragment>
-        <NavBar/>
-
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>

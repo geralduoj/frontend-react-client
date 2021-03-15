@@ -23,7 +23,6 @@ export default function Actions() {
 
   return (
     <React.Fragment>
-        <NavBar/>
         <AddGridSquare/>
     </React.Fragment>
   );

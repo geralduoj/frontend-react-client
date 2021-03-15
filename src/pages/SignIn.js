@@ -42,7 +42,7 @@ export default function SignIn() {
 
   return (
     <React.Fragment>
-        <NavBar/>
+        
             <Container component="main" maxWidth="xs">
                 
             <CssBaseline />
