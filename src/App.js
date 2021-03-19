@@ -16,6 +16,11 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Actions from './pages/Actions';
+import ListCourses from './pages/ListCourses';
+import AddCourse from './pages/AddCourse';
+import ListStudents from './pages/ListStudents';
+import AllCourses from './pages/AllCourses';
+import StudentByCourse from './pages/StudentByCourse';
 
 function Copyright() {
   return (
@@ -69,6 +74,11 @@ function App() {
       <Route path="/signin" component={SignIn} />
       <Route path="/signup" component={SignUp} />
       <Route path="/actions" component={Actions} />
+      <Route exact path="/my-courses" component={ListCourses} />
+      <Route exact path="/add-course" component={AddCourse} />
+      <Route exact path="/all-students" component={ListStudents} />StudentByCourse
+      <Route exact path="/all-courses" component={AllCourses} />
+      <Route exact path="/student-by-course" component={StudentByCourse} />
     </Switch>
   </Router>
     </React.Fragment>
