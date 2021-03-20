@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,11 +10,12 @@ import PostAddIcon from '@material-ui/icons/PostAdd';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Link as ReactLink} from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
+import axios from 'axios';
 
 function Copyright() {
   return (
@@ -53,8 +54,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddCourse() {
+function AddCourse(props) {
   const classes = useStyles();
+
+  const [data, setData] = useState({});
+  const [courseCode, setCourseCode] = useState('');
+  const [courseName, setCourseName] = useState('');
+  const [section, setSection] = useState('');
+  const [semester, setSemester] = useState('');
+  const [course, setCourse] = useState({ courseCode: '', courseName: '', section: '', semester:'', username: '' });
+  
+  console.log(semester)
+  const username = props.match.params.username;
+  const apiUrl = "http://localhost:3000/api/courses"
+
+  const saveCourse = (e) => {
+    //setShowLoading(true);
+    e.preventDefault();
+    const data = {courseCode: course.courseCode, courseName: course.courseName, section: course.section, semester: course.semester, username: username };
+    //
+    axios.post(apiUrl, data)
+    .then((result) => {
+        //setShowLoading(false);
+        console.log('results from save course:',result.data)
+        //props.history.push('/showarticle/' + result.data._id)
+
+    });
+};
+
+  //console.log(apiUrl)
 
   return (
     <React.Fragment>
@@ -78,6 +106,8 @@ export default function AddCourse() {
                         id="courseCode"
                         label="Course Code"
                         autoFocus
+                        value={courseCode}
+                        onChange={e => setCourseCode(e.target.value)}
                     />
                     </Grid>
                     <Grid item xs={12}>
@@ -89,6 +119,8 @@ export default function AddCourse() {
                         id="courseName"
                         label="Course Name"
                         autoFocus
+                        value={courseName}
+                        onChange={e => setCourseName(e.target.value)}
                     />
                     </Grid>
                     <Grid item xs={12}>
@@ -100,6 +132,8 @@ export default function AddCourse() {
                         type="number"
                         label="section"
                         name="section"
+                        value={section}
+                        onChange={e => setSection(e.target.value)}
                     />
                     </Grid>
                     <Grid item xs={12}>
@@ -108,6 +142,8 @@ export default function AddCourse() {
                       <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
+                      onChange={e => setSemester(e.target.value)}
+                      value={semester}
                     >
                       <MenuItem value={"Winter"}>Winter</MenuItem>
                       <MenuItem value={"Fall"}>Fall</MenuItem>
@@ -136,3 +172,5 @@ export default function AddCourse() {
     
   );
 }
+
+export default withRouter(AddCourse);

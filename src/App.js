@@ -73,10 +73,12 @@ function App() {
       <Route exact path="/" component={Home} />
       <Route path="/signin" component={SignIn} />
       <Route path="/signup" component={SignUp} />
-      <Route path="/actions" component={Actions} />
+      <Route exact path="/actions" component={Actions} />
+      <Route render ={()=> < ListStudents />} exact path="/actions/:username" />
       <Route exact path="/my-courses" component={ListCourses} />
       <Route exact path="/add-course" component={AddCourse} />
-      <Route exact path="/all-students" component={ListStudents} />StudentByCourse
+      <Route render ={()=> < AddCourse />} exact path="/add-course/:username" />
+      <Route exact path="/all-students" component={ListStudents} />
       <Route exact path="/all-courses" component={AllCourses} />
       <Route exact path="/student-by-course" component={StudentByCourse} />
     </Switch>

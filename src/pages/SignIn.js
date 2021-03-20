@@ -9,6 +9,8 @@ import Container from '@material-ui/core/Container';
 import SignInForm from '../components/SignInForm';
 import NavBar from '../components/NavBar';
 import Paper from '@material-ui/core/Paper';
+import { Alert, AlertTitle } from '@material-ui/lab';
+import { Link as ReactLink, withRouter} from "react-router-dom";
 
 function Copyright() {
   return (
@@ -37,18 +39,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+function SignIn(props) {
   const classes = useStyles();
 
   return (
     <React.Fragment>
         
-            <Container component="main" maxWidth="xs">
+            <Container component="main" maxWidth="md">
                 
             <CssBaseline />
                 <Grid container spacing={3}>
                   <Grid item xs={12}>
-                    <Paper elevation={5} className={classes.paper}><SignInForm/></Paper>
+                    <Paper elevation={5} className={classes.paper}>
+                      <SignInForm/>
+                    </Paper>
                   </Grid>
                 </Grid>
             <Box mt={8}>
@@ -58,3 +62,5 @@ export default function SignIn() {
     </React.Fragment>
   );
 }
+
+export default withRouter(SignIn);
