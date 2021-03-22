@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import AddGridSquare from '../components/AddGridSquare';
 import DataGrids from '../components/DataGrids';
+import { Link as ReactLink, withRouter} from "react-router-dom";
+import axios from 'axios';
+import Button from '@material-ui/core/Button';
 
 function Copyright() {
   return (
@@ -18,42 +21,103 @@ function Copyright() {
 }
 
 const columns = [
-    { field: "id", headerName: "ID", width: 70 },
-    { field: "firstName", headerName: "First name", width: 130 },
-    { field: "lastName", headerName: "Last name", width: 130 },
+    { field: "courseCode", headerName: "Course Code", width: 200 },
+    { field: "courseName", headerName: "Course name", width: 200 },
+    { field: "section", headerName: "Section", width: 200 },
     {
-      field: "age",
-      headerName: "Age",
-      type: "number",
-      width: 90
+      field: "semester",
+      headerName: "Semester",
+      width: 200
     },
     {
-      field: "fullName",
-      headerName: "Full name",
-      description: "This column has a value getter and is not sortable.",
-      sortable: false,
-      width: 160,
-      valueGetter: (params) =>
-        `${params.getValue("firstName") || ""} ${
-          params.getValue("lastName") || ""
-        }`
+      field: "action",
+      headerName: "Action",
+      width: 200,
+      renderCell: (params) => (
+        <strong>
+          
+          <Button
+            variant="contained"
+            color="primary"
+            size="small"
+            style={{ marginLeft: 16 }}
+          >
+            Open
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            size="small"
+            style={{ marginLeft: 16 }}
+          >
+            Open
+          </Button>
+        </strong>
+      ),
     }
   ];
+
   
   const rows = [
-    { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-    { id: 2, lastName: "Lannister", firstName: "Cersei", age: 35 },
-    { id: 3, lastName: "Lannister", firstName: "Jaime", age: 35 },
-    { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-    { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: 35 },
-    { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-    { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-    { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-    { id: 9, lastName: "Roxie", firstName: "Harvey", age: 35 }
+    { id:1, courseCode: 100, courseName: "Snow", section: "Jon", semester: 35 },
+    { id:2, courseCode: 2, courseName: "Lannister", section: "Cersei", semester: 35 },
+    { id:3, courseCode: 3, courseName: "Lannister", section: "Jaime", semester: 35 },
+    { id:4, courseCode: 4, courseName: "Stark", section: "Arya", semester: 16 },
+    { id:5, courseCode: 5, courseName: "Targaryen", section: "Daenerys", semester: 35 },
+    { id:6, courseCode: 6, courseName: "Melisandre", section: null, semester: 150 },
+    { id:7, courseCode: 7, courseName: "Clifford", section: "Ferrara", semester: 44 },
+    { id:8, courseCode: 8, courseName: "Frances", section: "Rossini", semester: 36 },
+    { id:9, courseCode: 9, courseName: "Roxie", section: "Harvey", semester: 35 }
   ];
 
+  function rowsArray(data){
+    let rowData = [];
+    for (let i = 0; i < data.length; i++) {
+      rowData.push({
+        id: i+1,
+        courseCode: data[i].courseCode,
+        courseName: data[i].courseName,
+        section: data[i].section,
+        semester: data[i].semester
+      });
+    }
+    return rowData;
+  }
 
-export default function ListCourses() {
+
+function ListCourses() {
+  const apiUrl = "http://localhost:3000/api/your-courses";
+  const [data, setData] = useState([]);
+  const [rowData, setRowData] = useState([]);
+
+  
+
+  useEffect(() => {
+    const getCourses = async () => {
+      await axios.get(apiUrl)
+        .then(result => {
+          //console.log('result.data:',result.data)
+          //check if the user has logged in
+          //if(result.data.screen !== 'auth')
+          //{
+            
+            //console.log('data in if:', result.data )
+            setData(result.data);
+            setRowData(result.data);
+            
+          //}
+        }).catch((error) => {
+          console.log('error in fetchData:', error)
+        });
+        //rowsArray(data);
+      };  
+      getCourses();
+  }, []);
+  console.log('data in data:', data )
+  const rows = rowsArray(data);
+  //setRowData(rowData);
+  console.log('data in data:', rowData )
+    
 
   return (
     <React.Fragment>
@@ -64,3 +128,5 @@ export default function ListCourses() {
     </React.Fragment>
   );
 }
+
+export default withRouter(ListCourses);

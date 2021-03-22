@@ -45,7 +45,7 @@ function SignIn(props) {
   return (
     <React.Fragment>
         
-            <Container component="main" maxWidth="md">
+            <Container component="main" maxWidth="xs">
                 
             <CssBaseline />
                 <Grid container spacing={3}>

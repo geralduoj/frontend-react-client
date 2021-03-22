@@ -16,6 +16,8 @@ import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import axios from 'axios';
+import MuiAlert from "@material-ui/lab/Alert";
+import Snackbar from "@material-ui/core/Snackbar";
 
 function Copyright() {
   return (
@@ -54,10 +56,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 function AddCourse(props) {
   const classes = useStyles();
 
   const [data, setData] = useState({});
+  const [open, setOpen] = React.useState(false);
   const [courseCode, setCourseCode] = useState('');
   const [courseName, setCourseName] = useState('');
   const [section, setSection] = useState('');
@@ -71,15 +78,27 @@ function AddCourse(props) {
   const saveCourse = (e) => {
     //setShowLoading(true);
     e.preventDefault();
-    const data = {courseCode: course.courseCode, courseName: course.courseName, section: course.section, semester: course.semester, username: username };
-    //
+    const data = {courseCode: courseCode, courseName: courseName, section: section, semester: semester, username: username };
+    console.log(data)
+    
     axios.post(apiUrl, data)
     .then((result) => {
         //setShowLoading(false);
+        setOpen(true);
         console.log('results from save course:',result.data)
-        //props.history.push('/showarticle/' + result.data._id)
+        
+        props.history.push('/my-courses')
 
     });
+    
+};
+
+const handleClose = (event, reason) => {
+  if (reason === "clickaway") {
+    return;
+  }
+
+  setOpen(false);
 };
 
   //console.log(apiUrl)
@@ -157,6 +176,7 @@ function AddCourse(props) {
                     fullWidth
                     variant="contained"
                     color="primary"
+                    onClick={saveCourse}
                     className={classes.submit}
                 >
                     ADD COURSE
@@ -166,6 +186,11 @@ function AddCourse(props) {
             <Box mt={5}>
                 <Copyright />
             </Box>
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="success">
+                Your course has been added successfully!
+              </Alert>
+            </Snackbar>
         </Container>
     </React.Fragment>
     

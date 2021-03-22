@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link as ReactLink, withRouter} from "react-router-dom";
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -19,7 +20,7 @@ function Copyright() {
 }
 
 
-export default function Actions() {
+function Actions() {
 
   return (
     <React.Fragment>
@@ -27,3 +28,5 @@ export default function Actions() {
     </React.Fragment>
   );
 }
+
+export default withRouter(Actions);

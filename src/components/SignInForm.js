@@ -84,63 +84,67 @@ export default function SignIn() {
   return (
     <React.Fragment>
       {screen === 'auth'
-      ? <div className={classes.paper}>
+      ?
+      <React.Fragment>
+       <div className={classes.paper}>
       <Avatar className={classes.avatar}>
       <LockOutlinedIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
       Sign in
       </Typography>
-      <form className={classes.form} noValidate>
-                  <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required="true"
-                      fullWidth
-                      id="username"
-                      label="Username"
-                      name="username"
-                      onChange={e => setUsername(e.target.value)}
-                      autoComplete="username"
-                      autoFocus
-                  />
-                  <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      name="password"
-                      onChange={e => setPassword(e.target.value)}
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="current-password"
-                  />
-                  <FormControlLabel
-                      fullWidth control={<Checkbox value="remember" color="primary" />}
-                      label="Remember me"
-                  />
-                  <Button
-                      //type="submit"
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                      onClick={auth}
-                      className={classes.submit}
-                  >
-                      Sign In
-                  </Button>
-                  <Grid container>
-                      <Grid item>
-                      <Link component={ReactLink} to="/signup" variant="body2">
-                          {"Don't have an account? Sign Up"}
-                      </Link>
+          <form className={classes.form} noValidate>
+                      <TextField
+                          variant="outlined"
+                          margin="normal"
+                          required="true"
+                          fullWidth
+                          id="username"
+                          label="Username"
+                          name="username"
+                          onChange={e => setUsername(e.target.value)}
+                          autoComplete="username"
+                          autoFocus
+                      />
+                      <TextField
+                          variant="outlined"
+                          margin="normal"
+                          required
+                          fullWidth
+                          name="password"
+                          onChange={e => setPassword(e.target.value)}
+                          label="Password"
+                          type="password"
+                          id="password"
+                          autoComplete="current-password"
+                      />
+                      <FormControlLabel
+                          fullWidth control={<Checkbox value="remember" color="primary" />}
+                          label="Remember me"
+                      />
+                      <Button
+                          //type="submit"
+                          fullWidth
+                          variant="contained"
+                          color="primary"
+                          onClick={auth}
+                          className={classes.submit}
+                      >
+                          Sign In
+                      </Button>
+                      <Grid container>
+                          <Grid item>
+                          <Link component={ReactLink} to="/signup" variant="body2">
+                              {"Don't have an account? Sign Up"}
+                          </Link>
+                          </Grid>
                       </Grid>
-                  </Grid>
-      </form>
-      </div> : <AddGridSquare user={username}/>
+          </form>
+      </div>
+      </React.Fragment> 
+      : <AddGridSquare user={username}/>
       }
-        
     </React.Fragment>
+    
   );
 }
