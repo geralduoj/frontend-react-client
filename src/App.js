@@ -21,6 +21,7 @@ import AddCourse from './pages/AddCourse';
 import ListStudents from './pages/ListStudents';
 import AllCourses from './pages/AllCourses';
 import StudentByCourse from './pages/StudentByCourse';
+import UpdateCourse from './pages/UpdateCourse';
 
 function Copyright() {
   return (
@@ -81,6 +82,7 @@ function App() {
       <Route exact path="/all-students" component={ListStudents} />
       <Route exact path="/all-courses" component={AllCourses} />
       <Route exact path="/student-by-course" component={StudentByCourse} />
+      <Route exact path="/update-course/:courseid/:coursecode/:coursename/:section/:semester" component={UpdateCourse} />
     </Switch>
   </Router>
     </React.Fragment>

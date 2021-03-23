@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { DataGrid } from "@material-ui/data-grid";
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,6 +11,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -29,8 +31,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DataGrids(props) {
-  const classes = useStyles();
+  
+
+  function DataGrids(props) {
+
+    const classes = useStyles();
+    
+    const dropCourse = (id, cCode, cName, sec, sem) => {
+      const course = { _id: id, courseCode: cCode, courseName: cName, section: sec, semester: sem };
+      console.log(course)
+      //
+      const apiUrl = "http://localhost:3000/api/courses/" + id;
+      axios.delete(apiUrl, course)
+        .then((result) => {
+          //setShowLoading(false);
+          props.history.push('/actions')
+        });
+    };
+    const updateCourse = (id, cCode, cName, sec, sem) => {
+      const course = { _id: id, courseCode: cCode, courseName: cName, section: sec, semester: sem };
+
+      console.log(course)
+      //
+      //const apiUrl = "http://localhost:3000/api/courses/" + id;
+      props.history.push({
+        pathname: '/update-course/' + course._id + '/' + course.courseCode + '/' + course.courseName + '/' + course.section + '/' + course.semester
+      });
+      //props.history.push('/update-course/' + cCode)
+    };
+
   return (
     <React.Fragment>
       <Container component="main" maxWidth="md">
@@ -47,7 +76,7 @@ export default function DataGrids(props) {
           </TableHead>
           <TableBody>
             {props.rows.map((row) => (
-              <TableRow key={row.id}>
+              <TableRow key={row._id}>
                 <TableCell component="th" scope="row">
                   {row.courseCode}
                 </TableCell>
@@ -60,6 +89,7 @@ export default function DataGrids(props) {
                     color="primary"
                     size="small"
                     style={{ marginLeft: 16 }}
+                    onClick={() => { updateCourse(row._id,row.courseCode, row.courseName, row.section, row.semester) }}
                   >
                     Update
                   </Button>
@@ -68,8 +98,9 @@ export default function DataGrids(props) {
                     color="secondary"
                     size="small"
                     style={{ marginLeft: 16 }}
+                    onClick={() => { dropCourse(row._id,row.courseCode, row.courseName, row.section, row.semester) }}
                   >
-                    Delete
+                    DROP
                   </Button>
                 </TableCell>
               </TableRow>
@@ -88,3 +119,5 @@ export default function DataGrids(props) {
     
   );
 }
+
+export default withRouter(DataGrids);
