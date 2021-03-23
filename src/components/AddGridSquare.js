@@ -72,7 +72,7 @@ function AddGridSquare(props) {
                   <Link component={ReactLink} to="/all-courses" variant="body2"><Paper elevation={5} className={classes.paper}>ALL COURSES</Paper></Link>
                   </Grid>
                   <Grid item xs={12}>
-                  <Link onClick={() => { showDetail(props.user) }} variant="body2"><Paper elevation={5} className={classes.paper}>STUDENTS BY COURSES</Paper></Link>
+                  <Link component={ReactLink} to="/student-by-course" variant="body2"><Paper elevation={5} className={classes.paper}>STUDENTS BY COURSES</Paper></Link>
                   </Grid>
                   <Grid item xs={12}>
                   <Link onClick={() => { showDetail(props.user) }} variant="body2"><Paper elevation={5} className={classes.paper}>TEST</Paper></Link>
